@@ -2,18 +2,20 @@ const Block = require('./block');
 
 class Blockchain {
   constructor() {
-    this.blockchain = [Block.genesisBlock()]; // Initialize a new array of blocks, starting with a genesis block
+    // Array of blocks, starting with the genesis block
+    this.blockchain = [Blockchain.createGenesisBlock()];
+    this.difficulty = 2;
   }
 
-  obtainLatestBlock() {
+  getLatestBlock() {
     return this.blockchain[this.blockchain.length - 1];
   }
 
   // Add a new block
   addBlock(newBlock) {
-    newBlock.prevHash = this.obtainLatestBlock().hash;
+    newBlock.prevHash = this.getLatestBlock().hash;
     // Recalculate its hash with this new prevHash value
-    newBlock.hash = newBlock.computeHash();
+    newBlock.mine(this.difficulty);
     this.blockchain.push(newBlock);
   }
 
@@ -34,6 +36,10 @@ class Blockchain {
       }
     }
     return true;
+  }
+
+  static createGenesisBlock() {
+    return new Block({}, '', Date.now());
   }
 }
 
