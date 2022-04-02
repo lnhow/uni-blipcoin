@@ -23,6 +23,15 @@ class Block {
     }
   }
 
+  hasValidTransaction() {
+    for (const transaction of this.transactions) {
+      if (!transaction.isValid()) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   static hashMatchDifficulty(hash = '', difficulty = 0) {
     const requiredPrefix = '0'.repeat(difficulty);
     return hash.startsWith(requiredPrefix);

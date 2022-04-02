@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/lnhow/blipcoin#readme",
   "dependencies": {
+    "elliptic": "^6.5.4",
     "prettier": "^2.6.1"
   }
 }

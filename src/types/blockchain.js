@@ -1,5 +1,6 @@
 const Block = require('./block');
 const Transaction = require('./transaction');
+const system = require('../config').system;
 
 class Blockchain {
   constructor() {
@@ -14,22 +15,62 @@ class Blockchain {
     return this.blockchain[this.blockchain.length - 1];
   }
 
+  /**
+   * Mine pending transactions
+   * @param {string} mineRewardAddress Miner's address
+   */
   minePendingTransactions(mineRewardAddress) {
-    let block = new Block(this.pendingTransactions, this.getLatestBlock().hash, Date.now());
+    const transactionsToStore = this.pendingTransactions;
+    this.pendingTransactions = [];
+
+    let block = new Block(transactionsToStore, this.getLatestBlock().hash, Date.now());
     block.mine(this.difficulty);
 
     this.blockchain.push(block);
     console.log(`Block ${this.blockchain.length} mined (${block.hash})`);
 
-    this.pendingTransactions = [];
-    const rewardTransaction = new Transaction(null, mineRewardAddress, this.mineReward);
-    this.createTransaction(rewardTransaction);
+    this.#createRewardTransaction(mineRewardAddress);
   }
 
-  createTransaction(transaction) {
+  /**
+   * Reward miner for a block mined, USED INTERNALLY
+   * @param {*} transaction Transaction to add
+   */
+  #createRewardTransaction(mineRewardAddress) {
+    const rewardTransaction = new Transaction(system.address, mineRewardAddress, this.mineReward);
+    this.#addTransaction(rewardTransaction);
+  }
+
+  /**
+   * Add a valid transaction to pending
+   * @param {Transaction} transaction Valid transaction
+   * @returns 
+   */
+  addTransaction(transaction) {
+    if (!transaction) {
+      throw new Error('Invalid transaction');
+    }
+    if (!transaction.fromAddress || !transaction.toAddress) {
+      throw new Error('Transaction is missing sender and receiver address');
+    }
+    if (!transaction.isValid()) {
+      throw new Error('Transaction is invalid');
+    }
+  }
+
+  /**
+   * Add a transaction, USED INTERNALLY
+   * @param {*} transaction Transaction to add
+   */
+  #addTransaction(transaction) {
     this.pendingTransactions.push(transaction);
   }
 
+  /**
+   * Get balance of wallet with address
+   * @param {string} address Wallet address
+   * @returns Wallet balance
+   */
   getWalletBalance(address) {
     let balance = 0;
     for (const block of this.blockchain) {
@@ -48,7 +89,6 @@ class Blockchain {
   isValidChain() {
     // Check valid genesis block
     if (JSON.stringify(this.blockchain[0]) !== JSON.stringify(Blockchain.createGenesisBlock())) {
-      console.log('genesis invalid')
       return false;
     }
 
@@ -57,14 +97,24 @@ class Blockchain {
       const block = this.blockchain[i];
       const prevBlock = this.blockchain[i - 1];
 
-      if (!Blockchain.isValidBlock(block, prevBlock)) {
+      if (!Blockchain.#isValidBlock(block, prevBlock)) {
         return false;
       }
     }
     return true;
   }
 
-  static isValidBlock(block, prevBlock) {
+  /**
+   * Check validity of a block
+   * @param {Block} block 
+   * @param {Block} prevBlock 
+   * @returns Is the block valid
+   */
+  static #isValidBlock(block, prevBlock) {
+    if (!block.hasValidTransaction()) {
+      return false;
+    }
+
     if (block.hash !== block.computeHash()) {
       // Block's data was modified
       return false;
