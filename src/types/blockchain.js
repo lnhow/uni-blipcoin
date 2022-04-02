@@ -20,8 +20,8 @@ class Blockchain {
    * @param {string} mineRewardAddress Miner's address
    */
   minePendingTransactions(mineRewardAddress) {
+    this.#addRewardTransaction(mineRewardAddress);
     const transactionsToStore = this.pendingTransactions;
-    this.pendingTransactions = [];
 
     let block = new Block(transactionsToStore, this.getLatestBlock().hash, Date.now());
     block.mine(this.difficulty);
@@ -29,14 +29,14 @@ class Blockchain {
     this.blockchain.push(block);
     console.log(`Block ${this.blockchain.length} mined (${block.hash})`);
 
-    this.#createRewardTransaction(mineRewardAddress);
+    this.pendingTransactions = [];
   }
 
   /**
    * Reward miner for a block mined, USED INTERNALLY
    * @param {*} transaction Transaction to add
    */
-  #createRewardTransaction(mineRewardAddress) {
+  #addRewardTransaction(mineRewardAddress) {
     const rewardTransaction = new Transaction(system.address, mineRewardAddress, this.mineReward);
     this.#addTransaction(rewardTransaction);
   }
@@ -56,6 +56,8 @@ class Blockchain {
     if (!transaction.isValid()) {
       throw new Error('Transaction is invalid');
     }
+
+    this.#addTransaction(transaction);
   }
 
   /**
