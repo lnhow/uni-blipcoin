@@ -1,9 +1,10 @@
 const crypto = require('crypto');
+const Transaction = require('./transaction');
 
 class Block {
-  constructor(data, prevHash = '', timestamp = Date.now()) {
+  constructor(transactions = [], prevHash = '', timestamp = Date.now()) {
     this.timestamp = timestamp;
-    this.data = data; // Store relevant data
+    this.transactions = transactions;
     this.prevHash = prevHash; // Previous block's hash
     this.hash = this.computeHash(); // Compute this block's hash
     this.nonce = 0;
@@ -11,7 +12,7 @@ class Block {
 
   computeHash() {
     let strBlockInfoToHash =
-      this.prevHash + this.timestamp + JSON.stringify(this.data) + this.nonce;
+      this.prevHash + this.timestamp + JSON.stringify(this.transactions) + this.nonce;
     return crypto.createHash('sha256').update(strBlockInfoToHash).digest('hex');
   }
 
