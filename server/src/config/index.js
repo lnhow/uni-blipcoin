@@ -5,6 +5,7 @@ require('dotenv').config();
 
 const DEFAULT = {
   SYSTEM: { 
+    ROOT: '/api',
     ADDRESS: 'SYSTEM',
     MINE_REWARD: 50,
     DIFFICULTY: 2,
@@ -18,7 +19,7 @@ const DEFAULT = {
 
 module.exports = {
   server: {
-    root: '/api',
+    root: SYSTEM.ROOT,
     port: process.env.PORT || 3001,
   },
   system: {
