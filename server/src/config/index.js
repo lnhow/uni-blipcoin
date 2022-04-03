@@ -9,7 +9,8 @@ const DEFAULT = {
     ADDRESS: 'SYSTEM',
     MINE_REWARD: 50,
     DIFFICULTY: 2,
-    MIN_TRANS_PER_BLOCK: -1, // Min transaction per block
+    MIN_TRANS_PER_BLOCK: 1, // Min transaction per block
+    TEST_TRANSACTIONS: true,// Enable test data transactions when start
   },
   MINER: {
     ADDRESS: '042e7f335d066fb5b3364139d8303f3e592d79be3cc4e2235af45a36ee4805a2a7e1ad716a538177f4b7272172333ab1586f5bcc03bdcb2429a5c142c4c42f8251',
@@ -19,7 +20,7 @@ const DEFAULT = {
 
 module.exports = {
   server: {
-    root: SYSTEM.ROOT,
+    root: DEFAULT.SYSTEM.ROOT,
     port: process.env.PORT || 3001,
   },
   system: {
@@ -27,6 +28,7 @@ module.exports = {
     difficulty: DEFAULT.SYSTEM.DIFFICULTY,
     minTransPerBlock: DEFAULT.SYSTEM.MIN_TRANS_PER_BLOCK,
     mineReward: DEFAULT.SYSTEM.MINE_REWARD,
+    testTransaction: DEFAULT.SYSTEM.TEST_TRANSACTIONS,
   },
   miner: {
     address: process.env.MINER_ADDRESS || DEFAULT.MINER.ADDRESS,

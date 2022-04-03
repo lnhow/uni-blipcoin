@@ -34,6 +34,38 @@ const WalletController = (blockchain) => ({
     });
   },
 
+  handleCreateTransactionSecure(req, res) {
+    const { signature, fromAddress, toAddress, amount } = req.body;
+    const errRes = getErrResponse();
+    if (!signature || !fromAddress || !toAddress || !amount) {
+      errRes.message = 'Invalid or missing argument';
+      return res.status(400).json(errRes);
+    }
+
+    try {
+      const transaction = new Transaction(fromAddress, toAddress, amount);
+      transaction.signature = signature;
+      if (!transaction.isValid) {
+        errRes.message = 'Invalid transaction signature';
+        return res.status(400).json(errRes);
+      }
+
+      blockchain.addTransaction(transaction);
+
+      res.status(201).json({
+        success: true,
+        data: {
+          transaction: blockchain.getTransaction(transaction.id),
+        },
+        message: 'Create transaction successfully'
+      })
+    } catch (err) {
+      errRes.message = err.message;
+      return res.status(400).json(errRes);
+    }
+  },
+
+  // Use for testing, without having something to sign
   handleCreateTransaction(req, res) {
     const { privateKey, fromAddress, toAddress, amount } = req.body;
     const errRes = getErrResponse();
