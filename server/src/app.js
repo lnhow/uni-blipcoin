@@ -16,11 +16,9 @@ app.use(ErrorHelper.handleBadJSONParseError);
 
 const Blockchain = require('./types/blockchain');
 const chain = new Blockchain();
-const ChainController = require('./controllers/blockchain/index.controller')(chain);
 
-app.get(`${config.server.root}/blocks`, ChainController.handleGetAllBlocks);
-app.get(`${config.server.root}/block/:block_index`, ChainController.handleGetBlockByIndex);
-
+const IndexRouter = require('./route')(chain);
+app.use(`${config.server.root}`, IndexRouter);
 
 app.use(ErrorController.handleNotFoundError);
 
