@@ -24,7 +24,7 @@ class Blockchain {
     const transactionsToStore = this.pendingTransactions;
 
     let block = new Block(transactionsToStore, this.getLatestBlock().hash, Date.now());
-    block.mine(this.difficulty);
+    block.mine(this.difficulty, mineRewardAddress);
 
     this.blockchain.push(block);
     console.log(`Block ${this.blockchain.length} mined (${block.hash})`);

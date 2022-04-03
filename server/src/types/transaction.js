@@ -1,9 +1,11 @@
 const crypto = require('crypto');
+const { v4: uuidv4 } = require('uuid');
 const system = require('../config').system;
 const ec = require('../config').ec;
 
 class Transaction {
   constructor(fromAddress, toAddress, amount) {
+    this.id = uuidv4();
     this.fromAddress = fromAddress;
     this.toAddress = toAddress;
     this.amount = amount;
