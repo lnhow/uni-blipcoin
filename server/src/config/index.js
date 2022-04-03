@@ -1,7 +1,13 @@
 const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
 
+require('dotenv').config();
+
 module.exports = {
+  server: {
+    root: '/api',
+    port: process.env.PORT || 3001,
+  },
   system: {
     address: 'SYSTEM',
   },

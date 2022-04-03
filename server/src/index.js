@@ -1,26 +1,51 @@
-const Blockchain = require('./types/blockchain');
-const Transaction = require('./types/transaction');
-const { miner, ec } = require('./config');
-const Wallet = require('./types/wallet');
+const http = require('http');
+var debug = require('debug')('blipcoin:server');
+const serverConfig = require('./config').server;
+const app = require('./app');
 
-const myWallet = Wallet.getFromPrivate(miner.private);
-const myWalletAddress = myWallet.getAddress();
-const toAddress = 'Someone address';
+app.set('port', serverConfig.port);
 
-let chain = new Blockchain();
+let server = http.createServer(app);
 
-const transaction1 = new Transaction(myWalletAddress, toAddress, 20);
-myWallet.signTransaction(transaction1);
-chain.addTransaction(transaction1);
+server.listen(serverConfig.port);
+server.on('error', onError);
+server.on('listening', onListening);
 
-console.log(`Pending: ${JSON.stringify(chain.pendingTransactions)}`)
-chain.minePendingTransactions(myWalletAddress);
-console.log(`Pending: ${JSON.stringify(chain.pendingTransactions)}`)
-chain.minePendingTransactions(myWalletAddress);
-console.log(`Pending: ${JSON.stringify(chain.pendingTransactions)}`)
+/**
+ * Event listener for HTTP server "error" event.
+ */
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
 
-console.log(`Wallet Joe: ${chain.getWalletBalance(toAddress)}`);
-console.log(`Wallet Miner: ${chain.getWalletBalance(myWalletAddress)}`);
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
 
-console.log(`Validity: ${chain.isValidChain()}`)
-console.log(chain.blockchain)
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+  console.log('Server started. Listening on ' + bind);
+}
