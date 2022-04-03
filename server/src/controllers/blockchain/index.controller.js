@@ -1,20 +1,17 @@
 const Blockchain = require('../../types/blockchain');
 
+const GetController = require('./getter.controller');
+
 /**
- * 
- * @param {Blockchain} blockchain 
- * @returns 
+ * Create a controller to operate on the DI-ed blockchain
+ * @param {Blockchain} blockchain The blockchain to operate on
  */
-const handleGetBlocks = (blockchain) => (req, res) => {
-  res.json({
-    success: true,
-    data: {
-      blockchain: blockchain.blockchain,
-    },
-    message: 'Get all block successfully'
-  })
+const BlockchainController = (blockchain) => {
+  const getController = GetController(blockchain);
+
+  return {
+    ...getController,
+  }
 }
 
-module.exports = (blockchain) => ({
-  handleGetBlocks: handleGetBlocks(blockchain),
-});
+module.exports = BlockchainController;

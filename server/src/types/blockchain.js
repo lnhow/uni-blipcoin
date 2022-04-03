@@ -11,9 +11,28 @@ class Blockchain {
     this.mineReward = 50;
   }
 
+  // Get ===============================================
+  /**
+   * Retrieve the lastest block
+   * @returns {Block} The lastest block
+   */
   getLatestBlock() {
     return this.blockchain[this.blockchain.length - 1];
   }
+
+  /**
+   * Retrieve block with the given index
+   * @param {number} index Index of the block to retrieve
+   * @returns {Block} Block with the given index
+   * @throws Will throw if given index out of bound
+   */
+  getBlock(index = 0) {
+    if (index < 0 || index > this.blockchain.length - 1) {
+      throw new Error('Index out of bound');
+    }
+    return this.blockchain[index];
+  }
+  // Get ===============================================
 
   /**
    * Mine pending transactions

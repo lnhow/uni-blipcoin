@@ -18,11 +18,15 @@ const Blockchain = require('./types/blockchain');
 const chain = new Blockchain();
 const ChainController = require('./controllers/blockchain/index.controller')(chain);
 
-app.get(`${config.server.root}/blocks`, ChainController.handleGetBlocks);
+app.get(`${config.server.root}/blocks`, ChainController.handleGetAllBlocks);
+app.get(`${config.server.root}/block/:block_index`, ChainController.handleGetBlockByIndex);
+
 
 app.use(ErrorController.handleNotFoundError);
 
-// Random testing stuff
+
+
+// Random testing stuff=============================================
 const Transaction = require('./types/transaction');
 const { miner } = require('./config');
 const Wallet = require('./types/wallet');
@@ -46,5 +50,6 @@ console.log(`Wallet Miner: ${chain.getWalletBalance(myWalletAddress)}`);
 
 console.log(`Validity: ${chain.isValidChain()}`)
 console.log(chain.blockchain)
+// Random testing stuff=============================================
 
 module.exports = app;
