@@ -1,14 +1,16 @@
 const Block = require('./block');
 const Transaction = require('./transaction');
 const system = require('../config').system;
+const miner = require('../config').miner;
 
 class Blockchain {
   constructor() {
     // Array of blocks, starting with the genesis block
     this.blockchain = [Blockchain.createGenesisBlock()];
     this.pendingTransactions = [];
-    this.difficulty = 2;
-    this.mineReward = 50;
+    this.difficulty = system.difficulty;
+    this.mineReward = system.mineReward;
+    this.minTransPerBlock = system.minTransPerBlock; // Min transaction per block
   }
 
   // Get ===============================================
@@ -32,13 +34,114 @@ class Blockchain {
     }
     return this.blockchain[index];
   }
+
+  /**
+   * Get all transactions in the current blockchain
+   * @returns {Transaction[]} All transactions in the blockchain
+   */
+  getAllTransactions() {
+    return [...this.getMinedTransaction(), ...this.getPendingTransaction()];
+  }
+
+  /**
+   * Get all mined transactions in the current blockchain
+   * @returns {Transaction[]} All mined transactions in the blockchain
+   */
+  getMinedTransaction() {
+    let transactions = [];
+    for (let i = 0; i < this.blockchain.length; i++) {
+      const block = this.blockchain[i];
+      let formattedTrans = block.transactions.map((trans) => {
+        return {
+          ...trans,
+          valid: trans.isValid(),
+          transaction_status: 'Mined',
+          block_index: i,
+        }
+      });
+      transactions.push(formattedTrans);
+    }
+    return transactions;
+  }
+
+  /**
+   * Get all pending transactions in the current blockchain
+   * @returns {Transaction[]} All pending transactions in the blockchain
+   */
+  getPendingTransaction() {
+    let transactions = this.pendingTransactions.map((trans) => {
+        return {
+          ...trans,
+          valid: trans.isValid(),
+          transaction_status: 'Pending',
+          block_index: i,
+        }
+      });
+    return transactions;
+  }
+
+  /**
+   * Get transaction by id
+   * @param {string} id Id of the transaction
+   * @returns {Transaction}
+   */
+  getTransaction(id = '') {
+    const transactions = this.getAllTransactions();
+    const transaction = transactions.find((trans) => trans.id === id);
+    
+    return transaction;
+  }
+
+  /**
+   * Get all transaction of wallet with address
+   * @param {string} address Wallet address
+   * @returns Wallet balance
+   */
+  getWalletTransaction(address = '') {
+    const transactions = this.getAllTransactions();
+    const walletTrans = transactions.filter((trans) => {
+      if (trans.fromAddress === address) {
+        return true;
+      }
+      if (trans.toAddress === address) {
+        return true;
+      }
+      return false
+    });
+    return walletTrans;
+  }
+
+  /**
+   * Get balance of wallet with address
+   * @param {string} address Wallet address
+   * @returns {number} Wallet balance
+   */
+   getWalletBalance(address) {
+    let balance = 0;
+    for (const block of this.blockchain) {
+      for (const transaction of block.transactions) {
+        if (transaction.fromAddress === address) {
+          balance -= transaction.amount;
+        }
+        if (transaction.toAddress === address) {
+          balance += transaction.amount;
+        }
+      }
+    }
+    return balance;
+  }
   // Get ===============================================
 
   /**
    * Mine pending transactions
    * @param {string} mineRewardAddress Miner's address
+   * @throws If don't have enough required transaction
    */
   minePendingTransactions(mineRewardAddress) {
+    if (this.pendingTransactions.length < this.minTransPerBlock) {
+      throw new Error('Don\'t have enough pending transaction');
+    }
+
     this.#addRewardTransaction(mineRewardAddress);
     const transactionsToStore = this.pendingTransactions;
 
@@ -51,19 +154,23 @@ class Blockchain {
     this.pendingTransactions = [];
   }
 
+  static #createRewardTransaction(mineRewardAddress, mineReward = 50) {
+    return new Transaction(system.address, mineRewardAddress, mineReward);
+  }
+
   /**
    * Reward miner for a block mined, USED INTERNALLY
    * @param {*} transaction Transaction to add
    */
   #addRewardTransaction(mineRewardAddress) {
-    const rewardTransaction = new Transaction(system.address, mineRewardAddress, this.mineReward);
+    const rewardTransaction = Blockchain.#createRewardTransaction(mineRewardAddress, this.mineReward);
     this.#addTransaction(rewardTransaction);
   }
 
   /**
    * Add a valid transaction to pending
    * @param {Transaction} transaction Valid transaction
-   * @returns 
+   * @throws If transaction is invalid
    */
   addTransaction(transaction) {
     if (!transaction) {
@@ -87,27 +194,7 @@ class Blockchain {
     this.pendingTransactions.push(transaction);
   }
 
-  /**
-   * Get balance of wallet with address
-   * @param {string} address Wallet address
-   * @returns Wallet balance
-   */
-  getWalletBalance(address) {
-    let balance = 0;
-    for (const block of this.blockchain) {
-      for (const transaction of block.transactions) {
-        if (transaction.fromAddress === address) {
-          balance -= transaction.amount;
-        }
-        if (transaction.toAddress === address) {
-          balance += transaction.amount;
-        }
-      }
-    }
-    return balance;
-  }
-
-  isValidChain() {
+  isValid() {
     // Check valid genesis block
     if (JSON.stringify(this.blockchain[0]) !== JSON.stringify(Blockchain.createGenesisBlock())) {
       return false;
@@ -152,7 +239,7 @@ class Blockchain {
   static createGenesisBlock() {
     // Have to be a fixed data
     return new Block(
-      [], 
+      [Blockchain.#createRewardTransaction(miner.address, system.mineReward)], 
       '', 
       1648885741758
     );

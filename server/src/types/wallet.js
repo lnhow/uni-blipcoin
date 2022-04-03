@@ -18,6 +18,14 @@ class Wallet {
   }
 
   /**
+   * Get private key of the wallet
+   * @returns {string} Wallet's private key
+   */
+   getPrivate() {
+    return this.keyPair.getPrivate('hex');
+  }
+
+  /**
    * Sign a transaction;
    * @param {Transaction} transaction 
    */
