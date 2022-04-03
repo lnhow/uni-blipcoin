@@ -6,6 +6,7 @@ const ec = require('../config').ec;
 class Transaction {
   constructor(fromAddress, toAddress, amount) {
     this.id = uuidv4();
+    this.timestamp = Date.now();
     this.fromAddress = fromAddress;
     this.toAddress = toAddress;
     this.amount = amount;

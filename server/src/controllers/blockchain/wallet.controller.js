@@ -21,6 +21,19 @@ const WalletController = (blockchain) => ({
     });
   },
 
+  handleGetAddress(req, res) {
+    const { privateKey } = req.body
+    const wallet = Wallet.getFromPrivate(privateKey);
+
+    return res.status(200).json({
+      success: true,
+      data: {
+        address: wallet.getAddress(),
+      },
+      message: 'Retrieve key successfully'
+    });
+  },
+
   handleCreateTransaction(req, res) {
     const { privateKey, fromAddress, toAddress, amount } = req.body;
     const errRes = getErrResponse();
@@ -30,10 +43,11 @@ const WalletController = (blockchain) => ({
     }
 
     try {
-      const wallet = Wallet.getFromPrivate(params.private);
+      const wallet = Wallet.getFromPrivate(privateKey);
       const transaction = new Transaction(fromAddress, toAddress, amount);
       wallet.signTransaction(transaction);
       blockchain.addTransaction(transaction);
+
       res.status(201).json({
         success: true,
         data: {

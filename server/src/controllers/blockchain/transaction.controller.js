@@ -7,7 +7,7 @@ const { getErrResponse } = require('../../helpers/error');
  */
 const TransactionController = (blockchain) => ({
   
-  handleGetTransactions(req, res) {
+  handleGetAllTransactions(req, res) {
     let transType = req.query.type || '';
     let transactions = [];
     if (transType === 'mined') {

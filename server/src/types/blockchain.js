@@ -55,11 +55,11 @@ class Blockchain {
         return {
           ...trans,
           valid: trans.isValid(),
-          transaction_status: 'Mined',
-          block_index: i,
+          transactionStatus: 'Mined',
+          blockIndex: i,
         }
       });
-      transactions.push(formattedTrans);
+      transactions.push(...formattedTrans);
     }
     return transactions;
   }
@@ -73,8 +73,8 @@ class Blockchain {
         return {
           ...trans,
           valid: trans.isValid(),
-          transaction_status: 'Pending',
-          block_index: i,
+          transactionStatus: 'Pending',
+          blockIndex: -1,
         }
       });
     return transactions;
@@ -181,6 +181,11 @@ class Blockchain {
     }
     if (!transaction.isValid()) {
       throw new Error('Transaction is invalid');
+    }
+
+    const walletBalance = this.getWalletBalance(transaction.fromAddress);
+    if (walletBalance < transaction.amount) {
+      throw new Error('Not enough balance');
     }
 
     this.#addTransaction(transaction);

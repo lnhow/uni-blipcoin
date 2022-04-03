@@ -23,7 +23,7 @@ const BlockController = (blockchain) => ({
     const index = parseInt(req.params.block_index);
     const errRes = getErrResponse();
 
-    if (index === NaN) {
+    if (isNaN(index)) {
       errRes.message = 'Invalid given index';
       return res.status(400).json(errRes);
     }
