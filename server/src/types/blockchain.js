@@ -202,6 +202,9 @@ class Blockchain {
   isValid() {
     // Check valid genesis block
     if (JSON.stringify(this.blockchain[0]) !== JSON.stringify(Blockchain.createGenesisBlock())) {
+      //console.log(JSON.stringify(this.blockchain[0]))
+      //console.log(JSON.stringify(Blockchain.createGenesisBlock()))
+      console.log('Invalid genesis');
       return false;
     }
 
@@ -211,6 +214,7 @@ class Blockchain {
       const prevBlock = this.blockchain[i - 1];
 
       if (!Blockchain.#isValidBlock(block, prevBlock)) {
+        console.log('Invalid block ' + i);
         return false;
       }
     }
@@ -242,9 +246,14 @@ class Blockchain {
   }
 
   static createGenesisBlock() {
-    // Have to be a fixed data
+    // Have to be a fixed data (especially timestamp, uuid, etc)
+    // or else it would cause an invalide genesis when check later
+    const trans = Blockchain.#createRewardTransaction(miner.address, system.mineReward);
+    trans.id = '0000'
+    trans.timestamp = 1648885741758;
+    
     return new Block(
-      [Blockchain.#createRewardTransaction(miner.address, system.mineReward)], 
+      [trans], 
       '', 
       1648885741758
     );

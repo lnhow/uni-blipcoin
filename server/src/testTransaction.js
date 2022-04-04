@@ -27,8 +27,8 @@ const createTestTransactions = (chain) => {
   console.log(`Wallet Joe: ${chain.getWalletBalance(toAddress)}`);
   console.log(`Wallet Miner: ${chain.getWalletBalance(myWalletAddress)}`);
 
-  console.log(`Validity: ${chain.isValid()}`)
   console.log(chain.blockchain)
+  console.log(`Validity: ${chain.isValid()}`)
 }
 
 module.exports = createTestTransactions;
