@@ -20,10 +20,10 @@ const IndexRouter = (blockchain) => {
   router.get(`/transaction/:transaction_id`, chainController.handleGetTransaction);
 
   // Require passing in signature with signned data
-  router.post(`/transaction_signature`, walletController.handleCreateTransactionSecure);
+  router.post(`/transaction`, walletController.handleCreateTransactionSecure);
 
   // Testing - Insecure, require passing in private key
-  router.post(`/transaction`, walletController.handleCreateTransaction);
+  router.post(`/transaction-plain`, walletController.handleCreateTransaction);
 
   router.get(`/wallet/:address`, walletController.handleGetWalletInfo);
   router.post(`/wallet`, walletController.handleCreateWallet);
