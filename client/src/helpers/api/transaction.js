@@ -1,5 +1,5 @@
 import api from '.';
-import { getWalletInfo, signTransaction } from '../wallet';
+//import { getWalletInfo, signTransaction } from '../wallet';
 const baseURI = '/transaction';
 
 export const TRANSACTION_TYPE = {
@@ -24,25 +24,25 @@ export const getTransactionById = async (id = '') => {
   return api.get(endpoint);
 }
 
-export const createTransaction = async (toAddress = '', amount = 0) => {
-  const endpoint = `${baseURI}`
-  const address = getWalletInfo().address;
-  const signature = signTransaction(toAddress, amount);
+// export const createTransaction = async (toAddress = '', amount = 0) => {
+//   const endpoint = `${baseURI}`
+//   const address = getWalletInfo().address;
+//   const signature = signTransaction(toAddress, amount);
 
-  const data = {
-    signature,
-    fromAddress: address,
-    toAddress,
-    amount
-  }
+//   const data = {
+//     signature,
+//     fromAddress: address,
+//     toAddress,
+//     amount
+//   }
 
-  return api.post(endpoint, data);
-}
+//   return api.post(endpoint, data);
+// }
 
 const TransactionAPI = {
   getAllTransactions,
   getTransactionById,
-  createTransaction,
+  // createTransaction,
 }
 
 export default TransactionAPI;

@@ -26,7 +26,7 @@ export default function BlockListItem({
   ) : '(none)';
 
   return (
-    <Paper variant="outlined" elevation={1}>
+    <Paper variant="outlined">
       <Box padding={1}>
         <Typography variant='body2'>
           <b>

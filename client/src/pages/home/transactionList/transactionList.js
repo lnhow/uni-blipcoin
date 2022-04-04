@@ -2,10 +2,10 @@ import {
   Grid, Box, Typography
 } from '@mui/material';
 import Loader from '../../../components/loader';
-import BlockListItem from './blockListItem';
+import TransactionListItem from './transactionListItem';
 
-export default function BlockList({
-  blocks = [], 
+export default function TransactionList({
+  transactions = [], 
   error, 
   isLoading, 
 }) {
@@ -25,28 +25,26 @@ export default function BlockList({
     )
   }
 
-  const orderedBlocks = blocks.sort((block1, block2) => {
-    return block2.timestamp - block1.timestamp;
+  const ordered = transactions.sort((trans1, trans2) => {
+    return trans2.timestamp - trans1.timestamp;
   });
-  const length = orderedBlocks.length;
 
   return (
     <Box>
       <Grid container spacing={2}>
-        {orderedBlocks.map((block, index) => {
-          const blockIndex = length - index - 1;
+        {ordered.map((trans) => {
           return (
             <Grid
-              key={blockIndex}
+              key={trans.is}
               item
               xs={12}
             >
-              <BlockListItem index={blockIndex} block={block}/>
+              <TransactionListItem data={trans}/>
             </Grid>)
         })}
       </Grid>
       <Box sx={{
-          margin: 1,
+          margin: 2,
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'center'

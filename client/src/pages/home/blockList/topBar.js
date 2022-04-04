@@ -13,7 +13,7 @@ export default function BlockListTopbar({
     <Toolbar>
       <Box sx={ {flexGrow: 1}}>
         <Typography variant='h6'>
-          <b>Blocks</b>
+          <b>Lastest blocks</b>
         </Typography>
         <Typography variant='caption'>
           (Difficulty: {chainStatus.difficulty} - Validity: {chainStatus.valid.toString()})
