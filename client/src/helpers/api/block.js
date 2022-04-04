@@ -16,3 +16,11 @@ export const triggerMineNewBlock = async () => {
   const data = {};
   return api.post(endpoint, data);
 }
+
+const BlockAPI = {
+  getAllBlock,
+  getBlockByIndex,
+  triggerMineNewBlock,
+}
+
+export default BlockAPI;

@@ -38,3 +38,11 @@ export const createTransaction = async (toAddress = '', amount = 0) => {
 
   return api.post(endpoint, data);
 }
+
+const TransactionAPI = {
+  getAllTransactions,
+  getTransactionById,
+  createTransaction,
+}
+
+export default TransactionAPI;
