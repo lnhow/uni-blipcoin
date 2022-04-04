@@ -1,9 +1,13 @@
-import {Toolbar, IconButton, Typography, Stack, Box} from '@mui/material';
+import {
+  Toolbar, IconButton, Typography, Stack, Box, 
+  Button, Tooltip,
+} from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
 
 export default function BlockListTopbar({
   chainStatus = { valid: true, difficulty: 0},
   handleRefresh = () => {},
+  handleTriggerMine = () => {}
 }) {
   return (
     <Toolbar>
@@ -17,6 +21,13 @@ export default function BlockListTopbar({
       </Box>
       
       <Stack direction='row' spacing={1}>
+        <Tooltip title='Trigger mine new block (if there any pending transaction)'>
+          <Button variant='outlined'
+            onClick={handleTriggerMine}
+          >
+            Trigger mine
+          </Button>
+        </Tooltip>
         <IconButton
           onClick={handleRefresh}
         >

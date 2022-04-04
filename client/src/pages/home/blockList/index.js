@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import BlockAPI from '../../../helpers/api/block';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import BlockListTopbar from './topBar';
 import BlockList from './blockList';
+import { formatAxiosErrorResponse } from '../../../helpers/error';
 
 export default function BlockListContainer() {
   const [blocks, setBlocks] = useState([]);
@@ -33,18 +34,7 @@ export default function BlockListContainer() {
     })
     .catch(
       (error) => {
-        let res = {};
-        if (error.response && error.response.data) {
-          if (error.response.data) {
-            res = {...error.response.data};
-          }
-          //Incase cannot request to server
-          res.data = error.response.data;
-          res.status = error.response.status;
-        }
-        else {
-          res.message = error.message;
-        }
+        let res = formatAxiosErrorResponse(error);
         setError(res);
       }
     )
@@ -53,24 +43,24 @@ export default function BlockListContainer() {
     })
   }
 
-  // const onTriggerMineSuccess = (data) => {
-  //   toast.success(data.message);
-  //   loadBlocks();
-  // }
-
-  // const onTriggerMineFailed = (err) => {
-  //   let message = err.message; //Incase cannot request to server
-  //   if (err.response && err.response.data) {
-  //     message = err.response.data.message;
-  //   }
-  //   toast.error(message);
-  // }
+  const triggerMineBlock = () => {
+    BlockAPI.triggerMineNewBlock()
+    .then(() => {
+      toast.success('Triggered mine successfully');
+      loadBlocks();
+    })
+    .catch((error) => {
+      let res = formatAxiosErrorResponse(error);
+      toast.error(`Triggerred unsuccessfully - ${res.message}`);
+    })
+  }
 
   return (
     <>
       <BlockListTopbar 
         chainStatus={chainStatus} 
         handleRefresh={() => {loadBlocks()}}
+        handleTriggerMine={triggerMineBlock}
       />
       <BlockList
         blocks={blocks}

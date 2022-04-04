@@ -25,18 +25,25 @@ export default function BlockList({
     )
   }
 
+  const orderedBlocks = blocks.sort((block1, block2) => {
+    return block2.timestamp - block1.timestamp;
+  });
+  const length = orderedBlocks.length;
+
   return (
     <Box>
       <Grid container spacing={2}>
-        {blocks.map((block, index) => (
-          <Grid
-            key={index}
-            item
-            xs={12}
-          >
-            <BlockListItem index={index} block={block}/>
-          </Grid>
-        ))}
+        {orderedBlocks.map((block, index) => {
+          const blockIndex = length - index - 1;
+          return (
+            <Grid
+              key={blockIndex}
+              item
+              xs={12}
+            >
+              <BlockListItem index={blockIndex} block={block}/>
+            </Grid>)
+        })}
       </Grid>
       <Box sx={{
           marginTop: 2,
