@@ -7,6 +7,9 @@ import NotFoundPage from '../pages/notfound';
 import HomePage from '../pages/home';
 import BlockInfoPage from '../pages/block';
 import WalletInfoPage from '../pages/wallet';
+import WalletAccessPage from '../pages/walletAccess';
+import WalletCreatePage from '../pages/walletCreate';
+import TransactionCreatePage from '../pages/transactionCreate';
 // Pages
 
 function Router() {
@@ -14,6 +17,15 @@ function Router() {
     <Switch>
       <Route exact path='/'>
         <HomePage />
+      </Route>
+      <Route exact path='/create-wallet'>
+        <WalletCreatePage />
+      </Route>
+      <Route exact path='/access-wallet'>
+        <WalletAccessPage />
+      </Route>
+      <Route exact path='/create-transaction'>
+        <TransactionCreatePage />
       </Route>
       <Route path='/block/:blockIndex'>
         <BlockInfoPage />

@@ -1,5 +1,6 @@
 import { Menu, MenuItem } from '@mui/material';
 import SignOutMenuItem from './signOutMenuItem';
+import { Link } from 'react-router-dom';
 
 export default function LoggedInMenu({
   anchorEl,
@@ -20,7 +21,9 @@ export default function LoggedInMenu({
         horizontal: 'right',
       }}
     >
-      <MenuItem>Create transaction</MenuItem>
+      <MenuItem component={Link} to='create-transaction'>
+        Create transaction
+      </MenuItem>
       <SignOutMenuItem/>
     </Menu>
   );
