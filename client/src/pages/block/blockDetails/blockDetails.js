@@ -6,6 +6,7 @@ import {
   Stack,
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
+import ErrorIndicator from '../../../components/errorIndicator';
 
 import Loader from '../../../components/loader';
 import { getLocalTimeFromTimestamp } from '../../../helpers/datetime';
@@ -28,7 +29,7 @@ export default function BlockDetails({
   if (error) {
     return (
       <Box>
-        {error.message}
+        <ErrorIndicator message={error.message}/>
       </Box>
     )
   }

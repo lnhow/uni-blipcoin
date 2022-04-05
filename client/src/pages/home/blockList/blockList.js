@@ -1,6 +1,7 @@
 import {
   Grid, Box, Typography
 } from '@mui/material';
+import ErrorIndicator from '../../../components/errorIndicator';
 import Loader from '../../../components/loader';
 import BlockListItem from './blockListItem';
 
@@ -20,7 +21,7 @@ export default function BlockList({
   if (error) {
     return (
       <Box>
-        {error.message}
+        <ErrorIndicator message={error.message}/>
       </Box>
     )
   }

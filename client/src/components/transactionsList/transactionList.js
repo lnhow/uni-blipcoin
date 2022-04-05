@@ -3,6 +3,7 @@ import {
 } from '@mui/material';
 import Loader from '../loader';
 import TransactionListItem from './transactionListItem';
+import ErrorIndicator from '../errorIndicator';
 
 export default function TransactionList({
   transactions = [], 
@@ -20,7 +21,7 @@ export default function TransactionList({
   if (error) {
     return (
       <Box>
-        {error.message}
+        <ErrorIndicator message={error.message}/>
       </Box>
     )
   }

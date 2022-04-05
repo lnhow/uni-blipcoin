@@ -5,7 +5,6 @@ import WalletDetails from './walletDetails';
 
 import { formatAxiosErrorResponse } from '../../../helpers/error';
 import { INITIAL_WALLET_STATE } from './helper';
-import WalletTransactions from './walletTransactions';
 
 export default function WalletDetailsContainer({
   walletAddress = '0000',
@@ -50,10 +49,6 @@ export default function WalletDetailsContainer({
         wallet={wallet}
         isLoading={isLoading}
         error={error}
-      />
-      <WalletTransactions 
-        walletAddress={wallet.address}
-        transactions={wallet.transactions}
       />
     </>
   )

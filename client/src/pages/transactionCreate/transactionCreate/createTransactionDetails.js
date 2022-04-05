@@ -3,6 +3,7 @@ import {
   Box, 
   Typography,
 } from '@mui/material';
+import ErrorIndicator from '../../../components/errorIndicator';
 
 import Loader from '../../../components/loader';
 import TextFieldWithCopy from '../../../components/textFieldWithCopy';
@@ -24,7 +25,7 @@ export default function CreateTransactionDetails({
   if (error) {
     return (
       <Box>
-        {error.message}
+        <ErrorIndicator message={error.message}/>
       </Box>
     )
   }

@@ -1,11 +1,30 @@
 # blipcoin
 
+This is a simple proof-of-work blockchain app
+
+Le Nguyen Hao - 18120355
+
 This includes:
 
-- An API Express server that store that store a blockchain that lives in its memory
+- An API Express server that store that store a simple PoW blockchain that lives in its memory
 - A React SPA to access it
 
-## Config server
+## Setup
+
+### Server `/server`
+
+Install dependency: `cd server` and `npm install`
+Run: `cd server` and `npm run start`
+
+### Client `/client`
+
+Install dependency: `cd slient` and `npm install`
+Run: `cd client` and `npm run start`
+Build: `cd client` and `npm run build`
+
+## Config
+
+### Server
 
 Environment: `/server/.env`
 
@@ -24,3 +43,9 @@ Environment: `/server/.env`
 - API's directory: `DEFAULT.SYSTEM.ROOT`
 
 By default, the system will give some starting currency(`MINE_REWARD`) to the `MINER_ADDRESS`. This can be change in the static function `createGenesisBlock` which can be found in `/server/src/types/blockchain.js`
+
+### Client
+
+Environment: `/server/.env`
+
+- `REACT_APP_API`: URL to server
