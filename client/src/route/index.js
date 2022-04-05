@@ -1,1 +1,1 @@
-export { default } from './route.component'
+export { default } from './route.component';

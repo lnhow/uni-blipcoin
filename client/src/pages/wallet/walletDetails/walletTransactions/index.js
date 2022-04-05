@@ -1,8 +1,4 @@
-import {
-  Box,
-  Typography,
-  Grid,
-} from '@mui/material';
+import { Box, Typography, Grid } from '@mui/material';
 
 import TransactionList from '../../../../components/transactionsList/transactionList';
 
@@ -12,10 +8,10 @@ export default function WalletTransactions({
 }) {
   const receivedTransactions = transactions.filter((trans) => {
     return trans.toAddress === walletAddress;
-  })
+  });
   const sentTransactions = transactions.filter((trans) => {
     return trans.fromAddress === walletAddress;
-  })
+  });
 
   return (
     <>
@@ -29,19 +25,15 @@ export default function WalletTransactions({
           <Typography variant='subtitle1'>
             <b>Sent transactions</b>
           </Typography>
-          <TransactionList
-            transactions={sentTransactions}
-          />
+          <TransactionList transactions={sentTransactions} />
         </Grid>
         <Grid item md={6} xs={12}>
           <Typography variant='subtitle1'>
             <b>Received transactions</b>
           </Typography>
-          <TransactionList
-            transactions={receivedTransactions}
-          />
+          <TransactionList transactions={receivedTransactions} />
         </Grid>
       </Grid>
     </>
-  )
+  );
 }

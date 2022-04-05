@@ -1,29 +1,23 @@
-import {
-  Grid, Box, Typography
-} from '@mui/material';
+import { Grid, Box, Typography } from '@mui/material';
 import ErrorIndicator from '../../../components/errorIndicator';
 import Loader from '../../../components/loader';
 import BlockListItem from './blockListItem';
 
-export default function BlockList({
-  blocks = [], 
-  error, 
-  isLoading, 
-}) {
+export default function BlockList({ blocks = [], error, isLoading }) {
   if (isLoading) {
     return (
       <Box>
-        <Loader/>
+        <Loader />
       </Box>
-    )
+    );
   }
 
   if (error) {
     return (
       <Box>
-        <ErrorIndicator message={error.message}/>
+        <ErrorIndicator message={error.message} />
       </Box>
-    )
+    );
   }
 
   const orderedBlocks = blocks.sort((block1, block2) => {
@@ -37,23 +31,24 @@ export default function BlockList({
         {orderedBlocks.map((block, index) => {
           const blockIndex = length - index - 1;
           return (
-            <Grid
-              key={blockIndex}
-              item
-              xs={12}
-            >
-              <BlockListItem index={blockIndex} block={block}/>
-            </Grid>)
+            <Grid key={blockIndex} item xs={12}>
+              <BlockListItem index={blockIndex} block={block} />
+            </Grid>
+          );
         })}
       </Grid>
-      <Box sx={{
+      <Box
+        sx={{
           margin: 1,
           display: 'flex',
           flexDirection: 'row',
-          justifyContent: 'center'
-        }}>
-          <Typography variant='subtitle2' align='center'>(End of list)</Typography>
-        </Box>
+          justifyContent: 'center',
+        }}
+      >
+        <Typography variant='subtitle2' align='center'>
+          (End of list)
+        </Typography>
+      </Box>
     </Box>
-  )
+  );
 }

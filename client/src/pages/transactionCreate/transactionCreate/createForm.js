@@ -1,10 +1,5 @@
 import { useState } from 'react';
-import { 
-  Box, 
-  Button,
-  TextField,
-  CircularProgress,
-} from '@mui/material';
+import { Box, Button, TextField, CircularProgress } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectWallet } from '../../../redux/slices/wallet';
 
@@ -15,17 +10,11 @@ import { toast } from 'react-toastify';
 import { formatAxiosErrorResponse } from '../../../helpers/error';
 
 const validationSchema = yup.object({
-  toAddress: yup
-    .string('Input recipient address')
-    .required('Required'),
-  amount: yup
-    .number('Must be a valid number')
-    .required('Required')
+  toAddress: yup.string('Input recipient address').required('Required'),
+  amount: yup.number('Must be a valid number').required('Required'),
 });
 
-export default function TransactionCreateForm({
-  onSuccess = () => {},
-}) {
+export default function TransactionCreateForm({ onSuccess = () => {} }) {
   const wallet = useSelector(selectWallet);
   const walletAddress = wallet.address;
   const [formStates, setFormStates] = useState({
@@ -33,29 +22,29 @@ export default function TransactionCreateForm({
   });
 
   const handleSubmit = async (formValues) => {
-    setFormStates({...formStates, isSubmitting: true});
+    setFormStates({ ...formStates, isSubmitting: true });
     const toAddress = formValues.toAddress;
     const amount = formValues.amount;
     TransactionAPI.createTransaction(toAddress, amount)
-    .then(() => {
-      toast.success('Transaction created');
-      onSuccess();
-    })
-    .catch((err) => {
-      toast.error(`Failed - ${formatAxiosErrorResponse(err)}`)
-    })
-    .finally(() => {
-      setFormStates({...formStates, isSubmitting: false});
-    })
-  }
+      .then(() => {
+        toast.success('Transaction created');
+        onSuccess();
+      })
+      .catch((err) => {
+        toast.error(`Failed - ${formatAxiosErrorResponse(err)}`);
+      })
+      .finally(() => {
+        setFormStates({ ...formStates, isSubmitting: false });
+      });
+  };
 
   const formik = useFormik({
     initialValues: {
       toAddress: '',
-      amount: 0
+      amount: 0,
     },
     validationSchema: validationSchema,
-    onSubmit: handleSubmit
+    onSubmit: handleSubmit,
   });
 
   return (
@@ -101,15 +90,19 @@ export default function TransactionCreateForm({
         />
       </Box>
       <Box>
-        <Button 
+        <Button
           disabled={formStates.isSubmitting}
           variant='contained'
-          fullWidth 
+          fullWidth
           type='submit'
         >
-          {formStates.isSubmitting ? <CircularProgress color='inherit'/>:'Access' }
+          {formStates.isSubmitting ? (
+            <CircularProgress color='inherit' />
+          ) : (
+            'Access'
+          )}
         </Button>
       </Box>
     </form>
-  )
+  );
 }

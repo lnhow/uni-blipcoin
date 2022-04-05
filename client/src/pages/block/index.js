@@ -6,8 +6,8 @@ export default function BlockInfoPage() {
   const { blockIndex } = useParams();
   return (
     <Container maxWidth='md'>
-      <Box marginTop={2}/>
-      <BlockDetailsContainer blockIndex={blockIndex}/>
+      <Box marginTop={2} />
+      <BlockDetailsContainer blockIndex={blockIndex} />
     </Container>
-  )
+  );
 }

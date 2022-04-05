@@ -1,7 +1,7 @@
 import { Container, Grid, Box } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
 
-export default function ErrorIndicator({message = 'Error'}) {
+export default function ErrorIndicator({ message = 'Error' }) {
   return (
     <Container>
       <Grid
@@ -19,7 +19,7 @@ export default function ErrorIndicator({message = 'Error'}) {
             justifyContent='enter'
             marginTop={2}
           >
-            <ErrorIcon/>
+            <ErrorIcon />
             <p>{message}</p>
           </Box>
         </Grid>

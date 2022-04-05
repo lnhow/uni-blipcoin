@@ -8,4 +8,4 @@ export const hashDataSHA256 = (data) => {
   // The same as: crypto.createHash('sha256').update(strData).digest('hex');
   // But do not require nodejs's crypto module
   return sha256(strData).toString();
-}
+};

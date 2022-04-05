@@ -16,9 +16,7 @@ export default function LoggedInActions() {
 
   return (
     <>
-      <Button onClick={handleClick}
-        variant='contained' 
-      >
+      <Button onClick={handleClick} variant='contained'>
         Wallet
       </Button>
       <LoggedInMenu open={open} anchorEl={anchorEl} handleClose={handleClose} />

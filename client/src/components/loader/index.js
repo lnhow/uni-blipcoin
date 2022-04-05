@@ -1,6 +1,6 @@
 import { Container, Grid, Box, CircularProgress } from '@mui/material';
 
-function Loader({label = 'Loading'}) {
+function Loader({ label = 'Loading' }) {
   return (
     <Container>
       <Grid
@@ -18,7 +18,7 @@ function Loader({label = 'Loading'}) {
             justifyContent='enter'
             marginTop={2}
           >
-            <CircularProgress color='secondary'/>
+            <CircularProgress color='secondary' />
             <p>{label}</p>
           </Box>
         </Grid>

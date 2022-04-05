@@ -1,4 +1,4 @@
-import Layout from "../layout";
+import Layout from '../layout';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,16 +7,16 @@ import store from '../redux/store';
 function App() {
   return (
     <Provider store={store}>
-      <Layout/>
+      <Layout />
       <ToastContainer
-          theme='light'
-          position='top-center'
-          autoClose={3000}
-          pauseOnHover={false}
-          closeOnClick
-          pauseOnFocusLoss={false}
-          hideProgressBar
-        />
+        theme='light'
+        position='top-center'
+        autoClose={3000}
+        pauseOnHover={false}
+        closeOnClick
+        pauseOnFocusLoss={false}
+        hideProgressBar
+      />
     </Provider>
   );
 }

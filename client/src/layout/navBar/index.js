@@ -11,10 +11,7 @@ const NavTitle = styled(Typography)(() => ({
 function NavBar() {
   return (
     <>
-      <AppBar 
-        color='background' 
-        position='static'
-      >
+      <AppBar color='background' position='static'>
         <Toolbar>
           <NavTitle component={Link} to='/'>
             <b>blipCoin</b>

@@ -1,8 +1,4 @@
-import {
-  Paper, 
-  Box, 
-  Typography,
-} from '@mui/material';
+import { Paper, Box, Typography } from '@mui/material';
 
 import Loader from '../../../components/loader';
 import TextFieldWithCopy from '../../../components/textFieldWithCopy';
@@ -12,23 +8,23 @@ import WalletTransactions from './walletTransactions';
 
 export default function WalletDetails({
   wallet = INITIAL_WALLET_STATE,
-  error = null, 
-  isLoading = false, 
+  error = null,
+  isLoading = false,
 }) {
   if (isLoading) {
     return (
       <Box>
-        <Loader/>
+        <Loader />
       </Box>
-    )
+    );
   }
 
   if (error) {
     return (
       <Box>
-        <ErrorIndicator message={error.message}/>
+        <ErrorIndicator message={error.message} />
       </Box>
-    )
+    );
   }
 
   return (
@@ -36,9 +32,7 @@ export default function WalletDetails({
       <Box>
         <Paper elevation={4}>
           <Box padding={1}>
-            <Typography variant='h6'>
-              Wallet
-            </Typography>
+            <Typography variant='h6'>Wallet</Typography>
             <TextFieldWithCopy
               margin='dense'
               size='small'
@@ -57,10 +51,10 @@ export default function WalletDetails({
           </Box>
         </Paper>
       </Box>
-      <WalletTransactions 
+      <WalletTransactions
         walletAddress={wallet.address}
         transactions={wallet.transactions}
       />
     </>
-  )
+  );
 }

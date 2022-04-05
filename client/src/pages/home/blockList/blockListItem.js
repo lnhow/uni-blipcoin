@@ -1,41 +1,35 @@
-import {
-  Paper, 
-  Box,
-  Stack,
-  Typography,
-  Link,
-  Button,
-} from '@mui/material';
+import { Paper, Box, Stack, Typography, Link, Button } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { getLocalTimeFromTimestamp } from '../../../helpers/datetime';
 
-export default function BlockListItem({
-  index = 0,
-  block = {}
-}) {
+export default function BlockListItem({ index = 0, block = {} }) {
   const metadata = block.metadata;
   const minerAddress = metadata.miner ? (
-    <Link 
+    <Link
       underline='hover'
-      component={RouterLink} 
+      component={RouterLink}
       to={`/wallet/${metadata.miner}`}
     >
       {metadata.miner}
     </Link>
-  ) : '(none)';
+  ) : (
+    '(none)'
+  );
 
   return (
-    <Paper variant="outlined">
+    <Paper variant='outlined'>
       <Box padding={1}>
         <Typography variant='body2'>
           <b>
             Block #
-            <Link 
+            <Link
               underline='hover'
-              component={RouterLink} 
+              component={RouterLink}
               to={`/block/${index}`}
-            >{index}</Link>
+            >
+              {index}
+            </Link>
           </b>
           {index === 0 ? <i> (Genesis block)</i> : ''}
         </Typography>
@@ -50,10 +44,7 @@ export default function BlockListItem({
         </Typography>
         <Box marginTop={1}>
           <Typography variant='body2'>Metadata</Typography>
-          <Stack 
-            direction={{ xs: 'column', sm: 'row' }}
-            spacing={1}
-          >
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
             <Typography variant='subtitle2'>
               <b>Transactions:</b> {block.transactions.length}
             </Typography>
@@ -67,21 +58,24 @@ export default function BlockListItem({
               <b>Mine time:</b> {metadata.mineTime.toFixed(4)} ms
             </Typography>
             <Box>
-              <Typography variant='subtitle2'><b>Timestamp:</b> {block.timestamp}</Typography>
+              <Typography variant='subtitle2'>
+                <b>Timestamp:</b> {block.timestamp}
+              </Typography>
               <Typography variant='caption'>
                 <i>({getLocalTimeFromTimestamp(block.timestamp)}</i>)
               </Typography>
             </Box>
-            
           </Stack>
         </Box>
-        <Button 
-          fullWidth variant='outlined'
-          component={RouterLink} to={`/block/${index}`}
+        <Button
+          fullWidth
+          variant='outlined'
+          component={RouterLink}
+          to={`/block/${index}`}
         >
           Details
         </Button>
       </Box>
     </Paper>
-  )
+  );
 }

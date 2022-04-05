@@ -43,7 +43,7 @@ export default function LoggedInMenu({
       <MenuItem component={Link} to='/create-transaction'>
         Create transaction
       </MenuItem>
-      <SignOutMenuItem/>
+      <SignOutMenuItem />
     </Menu>
   );
 }

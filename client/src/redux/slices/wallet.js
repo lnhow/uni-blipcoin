@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   isLogin: false,
   address: '',
-  privateKey: ''
+  privateKey: '',
 };
 
 export const WalletSlice = createSlice({
@@ -12,10 +12,7 @@ export const WalletSlice = createSlice({
   reducers: {
     signIn: (state, action) => {
       const { address, privateKey } = action.payload;
-      if (
-        address !== undefined &&
-        privateKey !== undefined 
-      ) {
+      if (address !== undefined && privateKey !== undefined) {
         state.isLogin = true;
         state.address = address;
         state.privateKey = privateKey;

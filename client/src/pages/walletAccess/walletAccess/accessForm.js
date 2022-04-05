@@ -1,9 +1,5 @@
 import { useState } from 'react';
-import { 
-  Box, 
-  Button,
-  TextField,
-} from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { signIn } from '../../../redux/slices/wallet';
 import { useHistory } from 'react-router-dom';
@@ -16,7 +12,7 @@ const validationSchema = yup.object({
   privateKey: yup
     .string('Input private key')
     .min(16, 'Minimum 16 characters')
-    .required('Required')
+    .required('Required'),
 });
 
 export default function AccessForm() {
@@ -27,19 +23,19 @@ export default function AccessForm() {
   });
 
   const handleSubmit = async (formValues) => {
-    setFormStates({...formStates, isSubmitting: true});
+    setFormStates({ ...formStates, isSubmitting: true });
     const key = formValues.privateKey;
     const walletInfo = getWalletInfoFromPrivate(key);
     dispatch(signIn(walletInfo));
     history.push('/');
-  }
+  };
 
   const formik = useFormik({
     initialValues: {
-      privateKey: ''
+      privateKey: '',
     },
     validationSchema: validationSchema,
-    onSubmit: handleSubmit
+    onSubmit: handleSubmit,
   });
 
   return (
@@ -58,14 +54,10 @@ export default function AccessForm() {
         />
       </Box>
       <Box>
-        <Button 
-          variant='contained'
-          fullWidth 
-          type='submit'
-        >
+        <Button variant='contained' fullWidth type='submit'>
           Access
         </Button>
       </Box>
     </form>
-  )
+  );
 }

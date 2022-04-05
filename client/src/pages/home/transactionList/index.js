@@ -19,29 +19,29 @@ export default function TransactionListContainer() {
     setIsLoading(true);
     setError(null);
     TransactionAPI.getAllTransactions()
-    .then((result) => {
-      if (!result.data.success) {
-        throw new Error(result.data.message);
-      }
+      .then((result) => {
+        if (!result.data.success) {
+          throw new Error(result.data.message);
+        }
 
-      const data = result.data.data;
-      setTransaction(data.transactions);
-    })
-    .catch(
-      (error) => {
+        const data = result.data.data;
+        setTransaction(data.transactions);
+      })
+      .catch((error) => {
         let res = formatAxiosErrorResponse(error);
         setError(res);
-      }
-    )
-    .finally(() => {
-      setIsLoading(false);
-    })
-  }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   return (
     <>
-      <TransactionListTopbar 
-        handleRefresh={() => {loadTransactions()}}
+      <TransactionListTopbar
+        handleRefresh={() => {
+          loadTransactions();
+        }}
       />
       <TransactionList
         transactions={transactions}
@@ -49,5 +49,5 @@ export default function TransactionListContainer() {
         error={error}
       />
     </>
-  )
+  );
 }

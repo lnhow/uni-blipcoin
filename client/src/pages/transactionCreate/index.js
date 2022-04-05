@@ -9,15 +9,13 @@ export default function TransactionCreatePage() {
   const walletAddress = wallet.address;
 
   if (!wallet.isLogin) {
-    return (
-      <Redirect to='/'/>
-    )
+    return <Redirect to='/' />;
   }
 
   return (
     <Container maxWidth='md'>
-      <Box marginTop={2}/>
-      <CreateTransactionContainer walletAddress={walletAddress}/>
+      <Box marginTop={2} />
+      <CreateTransactionContainer walletAddress={walletAddress} />
     </Container>
-  )
+  );
 }

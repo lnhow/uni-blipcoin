@@ -10,21 +10,22 @@ export default function TextFieldWithCopy(props) {
   const copyToClipboard = () => {
     navigator.clipboard.writeText(text);
     toast.info('Copied to clipboard');
-  }
-  
+  };
+
   return (
-    <TextField {...props}
+    <TextField
+      {...props}
       value={text}
       InputProps={{
         readOnly: true,
         endAdornment: (
           <Tooltip title='Copy'>
             <IconButton onClick={copyToClipboard}>
-              <ContentCopyIcon/>
+              <ContentCopyIcon />
             </IconButton>
           </Tooltip>
-        )
+        ),
       }}
     />
-  )
+  );
 }
