@@ -5,6 +5,7 @@ import {
 } from '@mui/material';
 
 import Loader from '../../../components/loader';
+import TextFieldWithCopy from '../../../components/textFieldWithCopy';
 import { INITIAL_WALLET_STATE } from './helper';
 
 export default function WalletDetails({
@@ -36,9 +37,13 @@ export default function WalletDetails({
           <Typography variant='h6'>
             Wallet
           </Typography>
-          <Typography noWrap variant='subtitle2'>
-            <b>Address:</b> {wallet.address}
-          </Typography>
+          <TextFieldWithCopy
+            margin='dense'
+            size='small'
+            fullWidth
+            label='Address'
+            text={wallet.address}
+          />
           <Box padding={1}>
             <Typography noWrap variant='caption'>
               Balance
