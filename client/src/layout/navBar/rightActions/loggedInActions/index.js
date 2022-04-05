@@ -1,14 +1,9 @@
 import { useState } from 'react';
 import { Button } from '@mui/material';
 
-import { useSelector } from 'react-redux';
-import { selectWallet } from '../../../../redux/slices/wallet';
 import LoggedInMenu from './menu';
 
 export default function LoggedInActions() {
-  const wallet = useSelector(selectWallet);
-  const address = wallet.adress;
-
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -21,8 +16,10 @@ export default function LoggedInActions() {
 
   return (
     <>
-      <Button onClick={handleClick}>
-        {address}
+      <Button onClick={handleClick}
+        variant='contained' 
+      >
+        Wallet
       </Button>
       <LoggedInMenu open={open} anchorEl={anchorEl} handleClose={handleClose} />
     </>

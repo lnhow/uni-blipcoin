@@ -27,7 +27,6 @@ export default function WalletDetailsContainer({
       if (!result.data.success) {
         throw new Error(result.data.message);
       }
-      console.log(result)
       const data = result.data.data;
       setWallet(data.wallet);
     })

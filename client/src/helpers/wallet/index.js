@@ -1,7 +1,7 @@
 import reduxStore from '../../redux/store';
 import { ec, hashDataSHA256 } from '../';
 
-const getKeyPair = (privateKey) => {
+const getKeyPair = (privateKey = '') => {
   return ec.keyFromPrivate(privateKey);
 }
 
