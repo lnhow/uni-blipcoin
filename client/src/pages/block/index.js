@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 export default function BlockInfoPage() {
   const { blockIndex } = useParams();
   return (
-    <Container maxWidth='lg'>
+    <Container maxWidth='md'>
       <Box marginTop={2}/>
       <BlockDetailsContainer blockIndex={blockIndex}/>
     </Container>

@@ -3,6 +3,7 @@ import {
   Button,
 } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Link as RouterLink } from 'react-router-dom';
 
 export default function TopBar({
@@ -11,8 +12,11 @@ export default function TopBar({
   return (
     <Toolbar>
       <Box sx={{flexGrow: 1}}>
-        <Button component={RouterLink} to='/'>
-          Back
+        <Button component={RouterLink} to='/'
+          variant='outlined'
+          startIcon={<ArrowBackIosNewIcon/>}
+        >
+          Home
         </Button>
       </Box>
       

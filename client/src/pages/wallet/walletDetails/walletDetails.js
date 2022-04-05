@@ -43,7 +43,7 @@ export default function WalletDetails({
             <Typography noWrap variant='caption'>
               Balance
             </Typography>
-            <Typography noWrap variant='h4'>
+            <Typography noWrap variant='h4' color='primary'>
               <b>{wallet.balance}</b>
             </Typography>
           </Box>
