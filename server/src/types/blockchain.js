@@ -176,6 +176,27 @@ class Blockchain {
   }
 
   /**
+   * Validate if a wallet has enough balance to make a transaction
+   * @param {string} address 
+   * @param {number} amount
+   */
+  hasEnoughBalance(address, amount) {
+    let walletBalance = this.getWalletBalance(transaction.fromAddress);
+    
+    let pendingBalance = 0; // Balance on hold, cannot do anthing with it
+    for (const block of this.blockchain) {
+      for (const transaction of block.transactions) {
+        if (transaction.fromAddress === address) {
+          pendingBalance -= transaction.amount;
+        }
+      }
+    }
+
+    walletBalance += pendingBalance;
+    return walletBalance >= amount
+  }
+
+  /**
    * Add a valid transaction to pending
    * @param {Transaction} transaction Valid transaction
    * @throws If transaction is invalid
@@ -191,9 +212,8 @@ class Blockchain {
       throw new Error('Transaction is invalid');
     }
 
-    const walletBalance = this.getWalletBalance(transaction.fromAddress);
-    if (walletBalance < transaction.amount) {
-      throw new Error('Not enough balance');
+    if (!this.hasEnoughBalance(transaction.fromAddress, transaction.amount)) {
+      throw new Error('Not enough active balance');
     }
 
     this.#addTransaction(transaction);
