@@ -105,7 +105,8 @@ const WalletController = (blockchain) => ({
           balance: balance,
           transactions: transactions,
         },
-      }
+      },
+      message: 'Get wallet info successfully'
     })
   },
 });
