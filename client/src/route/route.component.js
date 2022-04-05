@@ -4,7 +4,8 @@ import { Route, Switch } from 'react-router-dom';
 
 // Pages
 import NotFoundPage from '../pages/notfound';
-import Home from '../pages/home';
+import HomePage from '../pages/home';
+import BlockInfoPage from '../pages/block';
 
 // Pages
 
@@ -12,7 +13,10 @@ function Router() {
   return (
     <Switch>
       <Route exact path='/'>
-        <Home />
+        <HomePage />
+      </Route>
+      <Route path='/block/:blockIndex'>
+        <BlockInfoPage />
       </Route>
       <Route exact path='/notfound'>
         <NotFoundPage />

@@ -7,7 +7,10 @@ import {
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { getLocalTimeFromTimestamp } from '../../../helpers/datetime';
+import TransactionStatus from './components/transactionStatus';
+import TransactionBlockInfo from './components/transactionBlockInfo';
+
+import { getLocalTimeFromTimestamp } from '../../helpers/datetime';
 
 export default function TransactionListItem({
   data = {}
@@ -42,29 +45,22 @@ export default function TransactionListItem({
         <Typography variant='subtitle2'><b>Amount:</b> {data.amount}</Typography>
 
         <Box marginTop={1}>
-          <Typography variant='body2'>Metadata</Typography>
           <Stack 
             direction={{ xs: 'column', sm: 'row' }}
             spacing={1}
           >
-            <Typography variant='subtitle2'><b>Status:</b> {data.transactionStatus}</Typography>
-            <Typography variant='subtitle2'>
-              <b>Block: </b>
-              <Link 
-                underline='hover'
-                component={RouterLink} 
-                to={`/block/${data.blockIndex}`}
-              >
-                {data.blockIndex}
-              </Link>
-            </Typography>
+            <TransactionStatus 
+              transactionStatus={data.transactionStatus}
+            />
+            <TransactionBlockInfo
+              blockIndex={data.blockIndex}
+            />
             <Box>
               <Typography variant='subtitle2'><b>Timestamp:</b> {data.timestamp}</Typography>
               <Typography variant='caption'>
                 <i>({getLocalTimeFromTimestamp(data.timestamp)}</i>)
               </Typography>
             </Box>
-            
           </Stack>
         </Box>
       </Box>

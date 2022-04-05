@@ -1,13 +1,13 @@
 import {
   Grid, Box, Typography
 } from '@mui/material';
-import Loader from '../../../components/loader';
+import Loader from '../loader';
 import TransactionListItem from './transactionListItem';
 
 export default function TransactionList({
   transactions = [], 
-  error, 
-  isLoading, 
+  error = null, 
+  isLoading = false, 
 }) {
   if (isLoading) {
     return (

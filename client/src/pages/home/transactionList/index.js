@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import TransactionListTopbar from './topBar';
-import TransactionList from './transactionList';
+import TransactionList from '../../../components/transactionsList';
 import { formatAxiosErrorResponse } from '../../../helpers/error';
 import TransactionAPI from '../../../helpers/api/transaction';
 
