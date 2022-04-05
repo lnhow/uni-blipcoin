@@ -25,7 +25,5 @@
     "express": "^4.17.3",
     "uuid": "^8.3.2"
   },
-  "devDependencies": {
-    "prettier": "^2.6.2"
-  }
+  "devDependencies": {}
 }
