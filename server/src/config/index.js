@@ -10,7 +10,7 @@ const DEFAULT = {
     MINE_REWARD: 50,
     DIFFICULTY: 2,
     MIN_TRANS_PER_BLOCK: 1, // Min transactions per block
-    MAX_PENDING_TRANSACTIONS: 5, // If reached, auto mine new block with miner.address, this DO NOT count reward transaction
+    MAX_PENDING_TRANSACTIONS: 2, // If reached, auto mine new block with miner.address, this DO NOT count reward transaction
     TEST_TRANSACTIONS: true,// Enable test data transactions when start
   },
   MINER: {

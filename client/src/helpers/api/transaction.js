@@ -42,7 +42,7 @@ export const createTransaction = async (toAddress = '', amount = 0) => {
 const TransactionAPI = {
   getAllTransactions,
   getTransactionById,
-  // createTransaction,
+  createTransaction,
 }
 
 export default TransactionAPI;
