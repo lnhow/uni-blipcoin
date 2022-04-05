@@ -2,7 +2,7 @@
 
 This is a simple proof-of-work blockchain app
 
-Le Nguyen Hao - 18120355
+**Le Nguyen Hao - 18120355**
 
 This includes:
 
@@ -14,12 +14,15 @@ This includes:
 ### Server `/server`
 
 Install dependency: `cd server` and `npm install`
+
 Run: `cd server` and `npm run start`
 
 ### Client `/client`
 
 Install dependency: `cd slient` and `npm install`
+
 Run: `cd client` and `npm run start`
+
 Build: `cd client` and `npm run build`
 
 ## Config
