@@ -1,7 +1,7 @@
-import { ec as EC } from 'elliptic';
+import elliptic from 'elliptic';
 import sha256 from 'crypto-js/sha256';
 
-export const ec = new EC();
+export const ec = new elliptic.ec('secp256k1');
 
 export const hashDataSHA256 = (data) => {
   const strData = JSON.stringify(data);

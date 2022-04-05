@@ -35,7 +35,7 @@ export default function TransactionList({
         {ordered.map((trans) => {
           return (
             <Grid
-              key={trans.is}
+              key={trans.id}
               item
               xs={12}
             >

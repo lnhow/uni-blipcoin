@@ -19,7 +19,9 @@ const createTestTransactions = (chain) => {
   console.log(`Pending: ${JSON.stringify(chain.pendingTransactions)}`)
   chain.minePendingTransactions(myWalletAddress);
 
-  chain.addTransaction(transaction1);
+  const transaction2 = new Transaction(myWalletAddress, toAddress, 20);
+  myWallet.signTransaction(transaction2);
+  chain.addTransaction(transaction2);
   console.log(`Pending: ${JSON.stringify(chain.pendingTransactions)}`)
   chain.minePendingTransactions(myWalletAddress);
   console.log(`Pending: ${JSON.stringify(chain.pendingTransactions)}`)
