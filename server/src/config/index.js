@@ -9,7 +9,8 @@ const DEFAULT = {
     ADDRESS: 'SYSTEM',
     MINE_REWARD: 50,
     DIFFICULTY: 2,
-    MIN_TRANS_PER_BLOCK: 1, // Min transaction per block
+    MIN_TRANS_PER_BLOCK: 1, // Min transactions per block
+    MAX_PENDING_TRANSACTIONS: 5, // If reached, auto mine new block with miner.address, this DO NOT count reward transaction
     TEST_TRANSACTIONS: true,// Enable test data transactions when start
   },
   MINER: {
@@ -27,6 +28,7 @@ module.exports = {
     address: process.env.SYSTEM_ADDRESS || DEFAULT.SYSTEM.ADDRESS,
     difficulty: DEFAULT.SYSTEM.DIFFICULTY,
     minTransPerBlock: DEFAULT.SYSTEM.MIN_TRANS_PER_BLOCK,
+    maxPendingTransactions: DEFAULT.SYSTEM.MAX_PENDING_TRANSACTIONS,
     mineReward: DEFAULT.SYSTEM.MINE_REWARD,
     testTransaction: DEFAULT.SYSTEM.TEST_TRANSACTIONS,
   },

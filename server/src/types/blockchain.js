@@ -10,6 +10,7 @@ class Blockchain {
     this.pendingTransactions = [];
     this.difficulty = system.difficulty;
     this.mineReward = system.mineReward;
+    this.maxPendingTransactions = system.maxPendingTransactions;
     this.minTransPerBlock = system.minTransPerBlock; // Min transaction per block
   }
 
@@ -189,6 +190,7 @@ class Blockchain {
     }
 
     this.#addTransaction(transaction);
+    this.#onAddTransaction();
   }
 
   /**
@@ -197,6 +199,14 @@ class Blockchain {
    */
   #addTransaction(transaction) {
     this.pendingTransactions.push(transaction);
+  }
+
+  #onAddTransaction() {
+    // Auto mine new block 
+    // if pendingTransactions.length reach maxPendingTransactions
+    if (this.pendingTransactions.length >= this.maxPendingTransactions) {
+      this.minePendingTransactions(miner.address);
+    }
   }
 
   isValid() {

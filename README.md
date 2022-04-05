@@ -20,6 +20,7 @@ Environment: `/server/.env`
 - Default mine reward: `DEFAULT.SYSTEM.MINE_REWARD`
 - Default difficulty: `DEFAULT.SYSTEM.MINE_REWARD`
 - Min transaction per block: `DEFAULT.SYSTEM.MIN_TRANS_PER_BLOCK`
+- Max pending transaction: `DEFAULT.SYSTEM.MAX_PENDING_TRANSACTIONS` - If reached, trigger mine new block, this do not count mine reward transactions
 - API's directory: `DEFAULT.SYSTEM.ROOT`
 
 By default, the system will give some starting currency(`MINE_REWARD`) to the `MINER_ADDRESS`. This can be change in the static function `createGenesisBlock` which can be found in `/server/src/types/blockchain.js`
