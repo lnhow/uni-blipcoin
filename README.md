@@ -40,7 +40,7 @@ Environment: `/server/.env`
 `/server/src/config/index.js`
 
 - Default mine reward: `DEFAULT.SYSTEM.MINE_REWARD`
-- Default difficulty: `DEFAULT.SYSTEM.MINE_REWARD`
+- Default difficulty: `DEFAULT.SYSTEM.DIFFICULTY`
 - Min transaction per block: `DEFAULT.SYSTEM.MIN_TRANS_PER_BLOCK`
 - Max pending transaction: `DEFAULT.SYSTEM.MAX_PENDING_TRANSACTIONS` - If reached, trigger mine new block, this do not count mine reward transactions
 - API's directory: `DEFAULT.SYSTEM.ROOT`
