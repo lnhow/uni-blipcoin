@@ -5,6 +5,15 @@ const getKeyPair = (privateKey) => {
   return ec.keyFromPrivate(privateKey);
 }
 
+export const genWalletInfo = () => {
+  const keyPair = ec.genKeyPair();
+  const wallet = {
+    address: keyPair.getPublic('hex'),
+    privateKey: keyPair.getPrivate('hex'),
+  }
+  return wallet;
+}
+
 export const getWalletInfo = () => {
   const EMPTY_WALLET = {
     address: 'empty',
