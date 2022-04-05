@@ -184,15 +184,14 @@ class Blockchain {
     let walletBalance = this.getWalletBalance(address);
     
     let pendingBalance = 0; // Balance on hold, cannot do anthing with it
-    for (const block of this.blockchain) {
-      for (const transaction of block.transactions) {
-        if (transaction.fromAddress === address) {
-          pendingBalance -= transaction.amount;
-        }
+    for (const transaction of this.pendingTransactions) {
+      if (transaction.fromAddress === address) {
+        pendingBalance -= transaction.amount;
       }
     }
 
     walletBalance += pendingBalance;
+    
     return walletBalance >= amount
   }
 

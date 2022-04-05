@@ -31,7 +31,7 @@ export default function TransactionCreateForm({ onSuccess = () => {} }) {
         onSuccess();
       })
       .catch((err) => {
-        toast.error(`Failed - ${formatAxiosErrorResponse(err)}`);
+        toast.error(`Failed - ${formatAxiosErrorResponse(err).message}`);
       })
       .finally(() => {
         setFormStates({ ...formStates, isSubmitting: false });
@@ -99,7 +99,7 @@ export default function TransactionCreateForm({ onSuccess = () => {} }) {
           {formStates.isSubmitting ? (
             <CircularProgress color='inherit' />
           ) : (
-            'Access'
+            'Create'
           )}
         </Button>
       </Box>
