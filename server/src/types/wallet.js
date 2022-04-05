@@ -3,7 +3,7 @@ const Transaction = require('./transaction');
 
 class Wallet {
   /**
-   * @param {ec.KeyPair} keyPair 
+   * @param {ec.KeyPair} keyPair
    */
   constructor(keyPair) {
     this.keyPair = keyPair;
@@ -21,13 +21,13 @@ class Wallet {
    * Get private key of the wallet
    * @returns {string} Wallet's private key
    */
-   getPrivate() {
+  getPrivate() {
     return this.keyPair.getPrivate('hex');
   }
 
   /**
    * Sign a transaction;
-   * @param {Transaction} transaction 
+   * @param {Transaction} transaction
    */
   signTransaction(transaction) {
     transaction.sign(this.keyPair);
@@ -43,8 +43,8 @@ class Wallet {
 
   /**
    * Retrieve a wallet from private key
-   * @param {string} privateKey 
-   * @returns 
+   * @param {string} privateKey
+   * @returns
    */
   static getFromPrivate(privateKey) {
     return new Wallet(ec.keyFromPrivate(privateKey));
@@ -57,7 +57,7 @@ class Wallet {
   static genKeyPair = () => {
     const keyPair = ec.genKeyPair();
     return keyPair;
-  }
+  };
 }
 
-module.exports = Wallet
+module.exports = Wallet;

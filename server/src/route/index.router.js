@@ -13,11 +13,14 @@ const IndexRouter = (blockchain) => {
 
   router.get(`/blocks`, chainController.handleGetAllBlocks);
   router.get(`/block/:block_index`, chainController.handleGetBlockByIndex);
-  
-  router.post(`/block/mine`, chainController.handleTriggerMine);  // Trigger mine new block
-  
+
+  router.post(`/block/mine`, chainController.handleTriggerMine); // Trigger mine new block
+
   router.get(`/transactions`, chainController.handleGetAllTransactions);
-  router.get(`/transaction/:transaction_id`, chainController.handleGetTransaction);
+  router.get(
+    `/transaction/:transaction_id`,
+    chainController.handleGetTransaction,
+  );
 
   // Require passing in signature with signned data
   router.post(`/transaction`, walletController.handleCreateTransactionSecure);
@@ -28,9 +31,8 @@ const IndexRouter = (blockchain) => {
   router.get(`/wallet/:address`, walletController.handleGetWalletInfo);
   router.post(`/wallet`, walletController.handleCreateWallet);
   router.post(`/wallet/address`, walletController.handleGetAddress);
-  
 
   return router;
-}
+};
 
 module.exports = IndexRouter;

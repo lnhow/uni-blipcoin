@@ -17,12 +17,12 @@ const WalletController = (blockchain) => ({
         address: newWallet.getAddress(),
         privateKey: newWallet.getPrivate(),
       },
-      message: 'Create wallet successfully'
+      message: 'Create wallet successfully',
     });
   },
 
   handleGetAddress(req, res) {
-    const { privateKey } = req.body
+    const { privateKey } = req.body;
     const wallet = Wallet.getFromPrivate(privateKey);
 
     return res.status(200).json({
@@ -30,7 +30,7 @@ const WalletController = (blockchain) => ({
       data: {
         address: wallet.getAddress(),
       },
-      message: 'Retrieve key successfully'
+      message: 'Retrieve key successfully',
     });
   },
 
@@ -57,8 +57,8 @@ const WalletController = (blockchain) => ({
         data: {
           transaction: blockchain.getTransaction(transaction.id),
         },
-        message: 'Create transaction successfully'
-      })
+        message: 'Create transaction successfully',
+      });
     } catch (err) {
       errRes.message = err.message;
       return res.status(400).json(errRes);
@@ -85,8 +85,8 @@ const WalletController = (blockchain) => ({
         data: {
           transaction: blockchain.getTransaction(transaction.id),
         },
-        message: 'Create transaction successfully'
-      })
+        message: 'Create transaction successfully',
+      });
     } catch (err) {
       errRes.message = err.message;
       return res.status(400).json(errRes);
@@ -106,8 +106,8 @@ const WalletController = (blockchain) => ({
           transactions: transactions,
         },
       },
-      message: 'Get wallet info successfully'
-    })
+      message: 'Get wallet info successfully',
+    });
   },
 });
 

@@ -17,7 +17,7 @@ const BlockchainController = (blockchain) => {
     ...blockController,
     ...transactionController,
     walletController,
-  }
-}
+  };
+};
 
 module.exports = BlockchainController;

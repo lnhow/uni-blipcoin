@@ -4,20 +4,21 @@ const ec = new EC('secp256k1');
 require('dotenv').config();
 
 const DEFAULT = {
-  SYSTEM: { 
+  SYSTEM: {
     ROOT: '/api',
     ADDRESS: 'SYSTEM',
     MINE_REWARD: 50,
     DIFFICULTY: 2,
     MIN_TRANS_PER_BLOCK: 1, // Min transactions per block
     MAX_PENDING_TRANSACTIONS: 2, // If reached, auto mine new block with miner.address, this DO NOT count reward transaction
-    TEST_TRANSACTIONS: true,// Enable test data transactions when start
+    TEST_TRANSACTIONS: true, // Enable test data transactions when start
   },
   MINER: {
-    ADDRESS: '042e7f335d066fb5b3364139d8303f3e592d79be3cc4e2235af45a36ee4805a2a7e1ad716a538177f4b7272172333ab1586f5bcc03bdcb2429a5c142c4c42f8251',
-    PRIVATE: '58c90c9b8599df6b2b46faf47267ed49c6191d61c979229923d3f98fdd772857'
-  }
-}
+    ADDRESS:
+      '042e7f335d066fb5b3364139d8303f3e592d79be3cc4e2235af45a36ee4805a2a7e1ad716a538177f4b7272172333ab1586f5bcc03bdcb2429a5c142c4c42f8251',
+    PRIVATE: '58c90c9b8599df6b2b46faf47267ed49c6191d61c979229923d3f98fdd772857',
+  },
+};
 
 module.exports = {
   server: {
@@ -37,4 +38,4 @@ module.exports = {
     private: process.env.MINER_PRIVATE || DEFAULT.MINER.PRIVATE,
   },
   ec: ec,
-}
+};

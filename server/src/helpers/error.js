@@ -10,10 +10,10 @@ const getErrResponse = (message = 'Error') => {
     success: false,
     data: {},
     message: message,
-  }
-}
+  };
+};
 
 module.exports = {
   handleBadJSONParseError,
   getErrResponse,
-}
+};

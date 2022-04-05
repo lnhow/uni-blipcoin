@@ -58,7 +58,7 @@ class Blockchain {
           valid: trans.isValid(),
           transactionStatus: 'Mined',
           blockIndex: i,
-        }
+        };
       });
       transactions.push(...formattedTrans);
     }
@@ -71,13 +71,13 @@ class Blockchain {
    */
   getPendingTransaction() {
     let transactions = this.pendingTransactions.map((trans) => {
-        return {
-          ...trans,
-          valid: trans.isValid(),
-          transactionStatus: 'Pending',
-          blockIndex: -1,
-        }
-      });
+      return {
+        ...trans,
+        valid: trans.isValid(),
+        transactionStatus: 'Pending',
+        blockIndex: -1,
+      };
+    });
     return transactions;
   }
 
@@ -89,7 +89,7 @@ class Blockchain {
   getTransaction(id = '') {
     const transactions = this.getAllTransactions();
     const transaction = transactions.find((trans) => trans.id === id);
-    
+
     return transaction;
   }
 
@@ -107,7 +107,7 @@ class Blockchain {
       if (trans.toAddress === address) {
         return true;
       }
-      return false
+      return false;
     });
     return walletTrans;
   }
@@ -117,7 +117,7 @@ class Blockchain {
    * @param {string} address Wallet address
    * @returns {number} Wallet balance
    */
-   getWalletBalance(address) {
+  getWalletBalance(address) {
     let balance = 0;
     for (const block of this.blockchain) {
       for (const transaction of block.transactions) {
@@ -140,13 +140,17 @@ class Blockchain {
    */
   minePendingTransactions(mineRewardAddress) {
     if (this.pendingTransactions.length < this.minTransPerBlock) {
-      throw new Error('Don\'t have enough pending transaction');
+      throw new Error("Don't have enough pending transaction");
     }
 
     this.#addRewardTransaction(mineRewardAddress);
     const transactionsToStore = this.pendingTransactions;
 
-    let block = new Block(transactionsToStore, this.getLatestBlock().hash, Date.now());
+    let block = new Block(
+      transactionsToStore,
+      this.getLatestBlock().hash,
+      Date.now(),
+    );
     block.mine(this.difficulty, mineRewardAddress);
 
     this.blockchain.push(block);
@@ -164,7 +168,10 @@ class Blockchain {
    * @param {*} transaction Transaction to add
    */
   #addRewardTransaction(mineRewardAddress) {
-    const rewardTransaction = Blockchain.#createRewardTransaction(mineRewardAddress, this.mineReward);
+    const rewardTransaction = Blockchain.#createRewardTransaction(
+      mineRewardAddress,
+      this.mineReward,
+    );
     this.#addTransaction(rewardTransaction);
   }
 
@@ -202,7 +209,7 @@ class Blockchain {
   }
 
   #onAddTransaction() {
-    // Auto mine new block 
+    // Auto mine new block
     // if pendingTransactions.length reach maxPendingTransactions
     if (this.pendingTransactions.length >= this.maxPendingTransactions) {
       this.minePendingTransactions(miner.address);
@@ -211,7 +218,10 @@ class Blockchain {
 
   isValid() {
     // Check valid genesis block
-    if (JSON.stringify(this.blockchain[0]) !== JSON.stringify(Blockchain.createGenesisBlock())) {
+    if (
+      JSON.stringify(this.blockchain[0]) !==
+      JSON.stringify(Blockchain.createGenesisBlock())
+    ) {
       //console.log(JSON.stringify(this.blockchain[0]))
       //console.log(JSON.stringify(Blockchain.createGenesisBlock()))
       console.log('Invalid genesis');
@@ -233,8 +243,8 @@ class Blockchain {
 
   /**
    * Check validity of a block
-   * @param {Block} block 
-   * @param {Block} prevBlock 
+   * @param {Block} block
+   * @param {Block} prevBlock
    * @returns Is the block valid
    */
   static #isValidBlock(block, prevBlock) {
@@ -258,15 +268,14 @@ class Blockchain {
   static createGenesisBlock() {
     // Have to be a fixed data (especially timestamp, uuid, etc)
     // or else it would cause an invalide genesis when check later
-    const trans = Blockchain.#createRewardTransaction(miner.address, system.mineReward);
-    trans.id = '0000'
-    trans.timestamp = 1648885741758;
-    
-    return new Block(
-      [trans], 
-      '', 
-      1648885741758
+    const trans = Blockchain.#createRewardTransaction(
+      miner.address,
+      system.mineReward,
     );
+    trans.id = '0000';
+    trans.timestamp = 1648885741758;
+
+    return new Block([trans], '', 1648885741758);
   }
 }
 

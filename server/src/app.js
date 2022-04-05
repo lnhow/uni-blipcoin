@@ -13,7 +13,6 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(ErrorHelper.handleBadJSONParseError);
 
-
 const Blockchain = require('./types/blockchain');
 const chain = new Blockchain();
 
@@ -23,8 +22,8 @@ app.use(`${config.server.root}`, IndexRouter);
 app.use(ErrorController.handleNotFoundError);
 
 if (config.system.testTransaction) {
-  console.log('Adding transaction test data')
-  require('./testTransaction')(chain)
+  console.log('Adding transaction test data');
+  require('./testTransaction')(chain);
 }
 
 module.exports = app;

@@ -15,7 +15,7 @@ const BlockController = (blockchain) => ({
         difficulty: blockchain.difficulty,
         valid: blockchain.isValid(),
       },
-      message: 'Get all blocks successfully'
+      message: 'Get all blocks successfully',
     });
   },
 
@@ -35,7 +35,7 @@ const BlockController = (blockchain) => ({
           index: index,
           block: block,
         },
-        message: 'Get block successfully'
+        message: 'Get block successfully',
       });
     } catch (error) {
       errRes.message = 'Invalid given index';
@@ -53,11 +53,11 @@ const BlockController = (blockchain) => ({
           block: blockchain.getLatestBlock(),
         },
         message: 'Trigger successfully',
-      })
-    } catch(err) {
+      });
+    } catch (err) {
       res.status(400).json(getErrResponse(err.message));
-    }    
-  }
+    }
+  },
 });
 
 module.exports = BlockController;

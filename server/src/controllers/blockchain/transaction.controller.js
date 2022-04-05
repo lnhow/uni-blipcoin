@@ -6,7 +6,6 @@ const { getErrResponse } = require('../../helpers/error');
  * @param {Blockchain} blockchain The blockchain to operate on
  */
 const TransactionController = (blockchain) => ({
-  
   handleGetAllTransactions(req, res) {
     let transType = req.query.type || '';
     let transactions = [];
@@ -23,7 +22,7 @@ const TransactionController = (blockchain) => ({
       data: {
         transactions,
       },
-      message: 'Get all transactions successfully'
+      message: 'Get all transactions successfully',
     });
   },
 
@@ -36,9 +35,9 @@ const TransactionController = (blockchain) => ({
       data: {
         transaction,
       },
-      message: 'Get transactions successfully'
+      message: 'Get transactions successfully',
     });
-  }
+  },
 });
 
 module.exports = TransactionController;
