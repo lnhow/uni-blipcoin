@@ -181,7 +181,7 @@ class Blockchain {
    * @param {number} amount
    */
   hasEnoughBalance(address, amount) {
-    let walletBalance = this.getWalletBalance(transaction.fromAddress);
+    let walletBalance = this.getWalletBalance(address);
     
     let pendingBalance = 0; // Balance on hold, cannot do anthing with it
     for (const block of this.blockchain) {
