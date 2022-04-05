@@ -29,7 +29,6 @@ export default function BlockDetailsContainer({
       if (!result.data.success) {
         throw new Error(result.data.message);
       }
-      console.log(result)
       const data = result.data.data;
       setBlock(data.block);
       setIndex(data.index);

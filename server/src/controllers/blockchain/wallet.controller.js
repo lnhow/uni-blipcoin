@@ -100,9 +100,11 @@ const WalletController = (blockchain) => ({
     res.status(200).json({
       success: true,
       data: {
-        address: address,
-        balance: balance,
-        transactions: transactions,
+        wallet: {
+          address: address,
+          balance: balance,
+          transactions: transactions,
+        },
       }
     })
   },
