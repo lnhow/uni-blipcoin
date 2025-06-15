@@ -1,3 +1,5 @@
+# Archived
+
 # blipcoin
 
 This is a simple proof-of-work blockchain app.
