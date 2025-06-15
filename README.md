@@ -1,6 +1,8 @@
 # blipcoin
 
-This is a simple proof-of-work blockchain app
+This is a simple proof-of-work blockchain app.
+
+The data gets wiped every restart, hence, the blip in its name.
 
 **Le Nguyen Hao - 18120355**
 
